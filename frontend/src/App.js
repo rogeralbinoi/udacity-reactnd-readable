@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
 import Home from './containers/Home'
 import Category from './containers/Category'
 import CreatePost from './containers/CreatePost'
