@@ -71,6 +71,3 @@ export const addPost = ({ title, body, author, category }) => {
     console.log(error)
   })
 }
-
-// getPosts()
-// deletePost('8xf0y6ziyjabvozdd253nd')
