@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
 import Header from '../components/Header'
 import MenuCategories from '../components/MenuCategories'
-import { fetchCategories } from '../actions'
+import ListPosts from '../components/ListPosts'
+import { fetchCategories, fetchPosts } from '../actions'
+import { Link } from 'react-router-dom'
 
 class Home extends Component {
   componentDidMount() {
     this.props.fetchCategories()
+    this.props.fetchPosts()
   }
   render() {
     return [
@@ -16,6 +19,7 @@ class Home extends Component {
       </Header>,
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
+        <ListPosts posts={this.props.posts} />
       </Container>
     ]
   }
@@ -23,7 +27,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    posts: state.posts
   }
 }
 
@@ -31,6 +36,9 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => {
       dispatch(fetchCategories())
+    },
+    fetchPosts: () => {
+      dispatch(fetchPosts())
     }
   }
 }

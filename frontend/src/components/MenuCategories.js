@@ -3,7 +3,7 @@ import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const MenuCategories = ({ categories }) => (
-  <Menu vertical>
+  <Menu>
     {(categories || []).map(category => (
       <Menu.Item as={Link} key={category.path} to={`category/${category.path}`}>
         {category.name}
