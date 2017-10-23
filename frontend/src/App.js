@@ -9,9 +9,9 @@ const App = () => (
   <BrowserRouter>
     <div>
       <Route exact path="/" render={() => <Home />} />
-      <Route exact path="/category" render={() => <Category />} />
-      <Route exact path="/create-post" render={() => <CreatePost />} />
-      <Route exact path="/post" render={() => <Post />} />
+      <Route exact path="/category/:name" render={() => <Category />} />
+      <Route exact path="/create-post/" render={() => <CreatePost />} />
+      <Route exact path="/post/:id" render={() => <Post />} />
     </div>
   </BrowserRouter>
 )
