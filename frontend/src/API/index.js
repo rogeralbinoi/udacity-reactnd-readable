@@ -5,7 +5,7 @@ const config = {
 }
 
 export const getCategories = () => {
-  return axios.get(`${baseURL}/categories`, config).catch(function(error) {
+  return axios.get(`${baseURL}/categories`, config).catch(function (error) {
     console.log(error)
   })
 }
@@ -13,14 +13,14 @@ export const getCategories = () => {
 export const getPosts = (category = '') => {
   return axios
     .get(`${baseURL}${category ? `/${category}` : ''}/posts`, config)
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error)
     })
 }
 
 export const getPost = postId => {
   if (!postId) return
-  return axios.get(`${baseURL}/posts/${postId}`, config).catch(function(error) {
+  return axios.get(`${baseURL}/posts/${postId}`, config).catch(function (error) {
     console.log(error)
   })
 }
@@ -31,7 +31,7 @@ export const votePost = ({ postId, vote }) => {
 
   return axios
     .post(`${baseURL}/posts/${postId}`, { option }, config)
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error)
     })
 }
@@ -44,7 +44,7 @@ export const editPost = data => {
   delete data.id
   return axios
     .put(`${baseURL}/posts/${id}`, data, config)
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error)
     })
 }
@@ -54,7 +54,7 @@ export const deletePost = postId => {
 
   return axios
     .delete(`${baseURL}/posts/${postId}`, config)
-    .catch(function(error) {
+    .catch(function (error) {
       console.log(error)
     })
 }
@@ -67,7 +67,7 @@ export const addPost = ({ title, body, author, category }) => {
 
   const data = { id, timestamp, title, body, author, category }
 
-  return axios.post(`${baseURL}/posts`, data, config).catch(function(error) {
+  return axios.post(`${baseURL}/posts`, data, config).catch(function (error) {
     console.log(error)
   })
 }
