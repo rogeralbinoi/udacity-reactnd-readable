@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Button } from 'semantic-ui-react'
-import Header from '../components/Header'
+import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import ListPosts from '../components/ListPosts'
 import { fetchCategories, fetchPosts } from '../actions'
@@ -17,19 +17,19 @@ const WrapperActions = styled.div`
 class Category extends Component {
   componentDidMount() {
     this.props.fetchCategories()
-    this.props.fetchPosts(this.props.match.params.name)
+    this.props.fetchPosts(this.props.match.params.category)
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.name !== this.props.match.params.name) {
-      this.props.fetchPosts(nextProps.match.params.name)
+    if (nextProps.match.params.category !== this.props.match.params.category) {
+      this.props.fetchPosts(nextProps.match.params.category)
     }
   }
   render() {
     const { name } = this.props.match.params
     return [
-      <Header key="header">
+      <AppHeader key="AppHeader">
         <Container>Readable {name && ` - ${name}`}</Container>
-      </Header>,
+      </AppHeader>,
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
         <WrapperActions>

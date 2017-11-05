@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 const ListPosts = ({ posts }) => (
   <Card.Group>
     {(posts || []).map(post => (
-      <Card as={Link} to={`post/${post.id}`} key={post.id}>
+      <Card as={Link} to={`/${post.category}/${post.id}`} key={post.id}>
         <Card.Content>
           <Card.Header>{post.title}</Card.Header>
           <Card.Meta>Category: {post.category}</Card.Meta>
-          <Card.Description>{post.body}</Card.Description>
+          <Card.Description>{post.body.substring(0, 100)}...</Card.Description>
         </Card.Content>
         <Card.Content>
           <Icon name="user" />

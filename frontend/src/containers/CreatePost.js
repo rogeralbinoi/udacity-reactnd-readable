@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Button, Form } from 'semantic-ui-react'
-import Header from '../components/Header'
+import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import { fetchCategories, addPost } from '../actions'
 import { Link } from 'react-router-dom'
@@ -34,9 +34,9 @@ class CreatePost extends Component {
   }
   render() {
     return [
-      <Header key="header">
+      <AppHeader key="AppHeader">
         <Container>Readable - New Post</Container>
-      </Header>,
+      </AppHeader>,
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
         <WrapperActions>

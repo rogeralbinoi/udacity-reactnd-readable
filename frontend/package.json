@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.0",
+    "moment": "^2.19.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
@@ -14,6 +15,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
+    "sort-by": "^1.2.0",
     "styled-components": "^2.2.1"
   },
   "scripts": {

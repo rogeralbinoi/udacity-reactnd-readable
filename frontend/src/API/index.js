@@ -25,12 +25,40 @@ export const getPost = postId => {
   })
 }
 
+export const getComments = postId => {
+  if (!postId) return
+  return axios.get(`${baseURL}/posts/${postId}/comments`, config).catch(function (error) {
+    console.log(error)
+  })
+}
+
 export const votePost = ({ postId, vote }) => {
   const option = vote === 'upVote' || vote === 'downVote' ? vote : ''
   if (!postId || !option) return
 
   return axios
     .post(`${baseURL}/posts/${postId}`, { option }, config)
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+export const voteComment = ({ id, vote }) => {
+  const option = vote === 'upVote' || vote === 'downVote' ? vote : ''
+  if (!id || !option) return
+
+  return axios
+    .post(`${baseURL}/comments/${id}`, { option }, config)
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+export const deleteComment = ({ id }) => {
+  if (!id) return
+
+  return axios
+    .delete(`${baseURL}/comments/${id}`, config)
     .catch(function (error) {
       console.log(error)
     })
@@ -68,6 +96,19 @@ export const addPost = ({ title, body, author, category }) => {
   const data = { id, timestamp, title, body, author, category }
 
   return axios.post(`${baseURL}/posts`, data, config).catch(function (error) {
+    console.log(error)
+  })
+}
+
+export const addComment = ({ body, author, parentId }) => {
+  const timestamp = Date.now()
+  const id = Math.random()
+    .toString(36)
+    .substr(2, 10)
+
+  const data = { id, timestamp, body, author, parentId }
+
+  return axios.post(`${baseURL}/comments`, data, config).catch(function (error) {
     console.log(error)
   })
 }

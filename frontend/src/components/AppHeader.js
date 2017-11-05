@@ -7,6 +7,6 @@ const Wrapper = styled.h1`
   padding: 0.5em;
 `
 
-const Header = ({ children }) => <Wrapper size="huge">{children}</Wrapper>
+const AppHeader = ({ children }) => <Wrapper size="huge">{children}</Wrapper>
 
-export default Header
+export default AppHeader

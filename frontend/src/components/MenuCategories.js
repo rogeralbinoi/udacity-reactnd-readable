@@ -8,7 +8,7 @@ const MenuCategories = ({ categories }) => (
       Home
     </Menu.Item>}
     {(categories || []).map(category => (
-      <Menu.Item as={Link} key={category.path} to={`/category/${category.path}`}>
+      <Menu.Item as={Link} key={category.path} to={`/${category.path}`}>
         {category.name}
       </Menu.Item>
     ))}
