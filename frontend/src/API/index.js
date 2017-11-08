@@ -1,4 +1,5 @@
 import axios from 'axios'
+import uuidv1 from 'uuid/v1'
 const baseURL = 'http://localhost:3001'
 const config = {
   headers: { Authorization: 'whatever-you-want' }
@@ -90,9 +91,7 @@ export const deletePost = ({ postId }) => {
 
 export const addPost = ({ title, body, author, category }) => {
   const timestamp = Date.now()
-  const id = Math.random()
-    .toString(36)
-    .substr(2, 10)
+  const id = uuidv1()
 
   const data = { id, timestamp, title, body, author, category }
 
@@ -103,9 +102,7 @@ export const addPost = ({ title, body, author, category }) => {
 
 export const addComment = ({ body, author, parentId }) => {
   const timestamp = Date.now()
-  const id = Math.random()
-    .toString(36)
-    .substr(2, 10)
+  const id = uuidv1()
 
   const data = { id, timestamp, body, author, parentId }
 

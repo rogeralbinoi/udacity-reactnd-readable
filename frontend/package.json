@@ -16,7 +16,8 @@
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.75.1",
     "sort-by": "^1.2.0",
-    "styled-components": "^2.2.1"
+    "styled-components": "^2.2.1",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
