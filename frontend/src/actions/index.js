@@ -1,4 +1,5 @@
 import * as API from '../API'
+import sortBy from 'sort-by'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -6,7 +7,10 @@ export const FETCH_POST = 'FETCH_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const VOTE_POST = 'VOTE_POST'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const DELETE_POST = 'DELETE_POST'
+export const NEW_MESSAGE = 'NEW_MESSAGE'
 
 export const fetchCategories = () => {
   return dispatch => {
@@ -48,7 +52,7 @@ export const fetchComments = postId => {
   if (postId) {
     return dispatch => {
       API.getComments(postId).then(response => {
-        dispatch({ type: FETCH_COMMENTS, comments: response.data })
+        dispatch({ type: FETCH_COMMENTS, comments: (response.data || []).sort(sortBy('-voteScore')) })
       })
     }
   }
@@ -70,10 +74,36 @@ export const voteComment = ({ id, vote }) => {
   }
 }
 
+export const votePost = ({ postId, vote }) => {
+  return dispatch => {
+    API.votePost({ postId, vote }).then(response => {
+      dispatch({ type: VOTE_POST, post: response.data })
+    })
+  }
+}
+
 export const deleteComment = ({ id }) => {
   return dispatch => {
     API.deleteComment({ id }).then(response => {
       dispatch({ type: DELETE_COMMENT, comment: response.data })
+    })
+  }
+}
+
+export const deletePost = ({ postId, history, category }) => {
+  return dispatch => {
+    API.deletePost({ postId }).then(response => {
+      dispatch({ type: DELETE_POST, post: response })
+      history.push(`/${category}`)
+      dispatch({
+        type: NEW_MESSAGE, message: [
+          {
+            title: 'Post salvo com sucesso!',
+            warning: true,
+            description: 'Lorem ipsum dolor sit amet'
+          }
+        ]
+      })
     })
   }
 }

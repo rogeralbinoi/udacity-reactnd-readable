@@ -8,7 +8,7 @@ const App = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Category} />
-      <Route exact path="/create-post/" render={() => <CreatePost />} />
+      <Route exact path="/create-post/" component={CreatePost} />
       <Route exact path="/:category/:id" component={Post} />
       <Route exact path="/:category" component={Category} />
     </Switch>

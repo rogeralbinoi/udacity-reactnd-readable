@@ -5,7 +5,7 @@ import { Container, Button, Header, Icon, Label, Rating } from 'semantic-ui-reac
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import Comments from '../components/Comments'
-import { fetchCategories, fetchPost, fetchComments } from '../actions'
+import { fetchCategories, fetchPost, fetchComments, votePost, deletePost } from '../actions'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -65,11 +65,19 @@ class Post extends Component {
           <Header className={'title'} as='h1'>{title}
           </Header>
           <WrapperInfo>
-            <span><Icon name={'heart'} /> {voteScore}</span>
+            <span><Icon name={'like outline'} /> {voteScore}</span>
             <span><Icon name={'user'} /> {author}</span>
             <span>Category: {category}</span>
             <span><Icon name={'calendar'} /> {date}</span>
           </WrapperInfo>
+          <Button.Group basic size='mini'>
+            <Button onClick={() => { this.props.votePost({ id: id, vote: 'upVote' }) }}><Icon name={'like outline'} />Like</Button>
+            <Button onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }}><Icon name={'dislike outline'} />Dislike</Button>
+          </Button.Group>
+          <Button.Group basic size='mini'>
+            {/* <Button onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }}><Icon name={'edit outline'} />Edit</Button> */}
+            <Button onClick={() => { this.props.deletePost({ postId: id, history: this.props.history, category: this.props.match.params.category }) }}><Icon name={'trash outline'} />Delete</Button>
+          </Button.Group>
           {!!body && (<p className="post">{body}</p>)}
         </WrapperPost>
       </Container>,
@@ -97,6 +105,12 @@ const mapDispatchToProps = dispatch => {
     },
     fetchComments: (postId = '') => {
       dispatch(fetchComments(postId))
+    },
+    votePost: ({ id, vote }) => {
+      dispatch(votePost({ postId: id, vote }))
+    },
+    deletePost: ({ postId, history, category }) => {
+      dispatch(deletePost({ postId, history, category }))
     }
   }
 }
