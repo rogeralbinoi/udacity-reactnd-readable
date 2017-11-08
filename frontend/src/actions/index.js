@@ -98,7 +98,7 @@ export const deletePost = ({ postId, history, category }) => {
       dispatch({
         type: NEW_MESSAGE, message: [
           {
-            title: 'Post salvo com sucesso!',
+            title: 'Post has been deleted successfully!',
             warning: true,
             description: 'Lorem ipsum dolor sit amet'
           }
