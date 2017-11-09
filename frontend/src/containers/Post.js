@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Container, Button, Header, Icon, Label, Rating } from 'semantic-ui-react'
+import { Container, Button, Header, Icon, Label, Rating, Message } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import Comments from '../components/Comments'
@@ -24,6 +24,10 @@ const WrapperPost = styled.div`
     margin-top: 2rem;
     font-size: 1.2rem;
   }
+`
+
+const WrapperMessages = styled.div`
+  padding: 1em 0;
 `
 
 const WrapperInfo = styled.div`
@@ -57,6 +61,16 @@ class Post extends Component {
       <AppHeader key="AppHeader">
         <Container>Readable</Container>
       </AppHeader>,
+      !!this.props.messages.length && (<Container>
+        <WrapperMessages>
+          {this.props.messages.map((message) => {
+            return (<Message warning={message.warning} positive={message.positive} >
+              <Message.Header>{message.title}</Message.Header>
+              <p>{message.description}</p>
+            </Message>)
+          })}
+        </WrapperMessages>
+      </Container>),
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
       </Container>,
@@ -91,7 +105,8 @@ class Post extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
-    post: state.post
+    post: state.post,
+    messages: state.messages
   }
 }
 

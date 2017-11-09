@@ -11,6 +11,7 @@ export const VOTE_POST = 'VOTE_POST'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const DELETE_POST = 'DELETE_POST'
 export const NEW_MESSAGE = 'NEW_MESSAGE'
+export const CLEAR_MESSAGES = 'CLEAR_MESSAGES'
 
 export const fetchCategories = () => {
   return dispatch => {
@@ -28,11 +29,20 @@ export const fetchPosts = (category = '') => {
   }
 }
 
-export const addPost = (post) => {
+export const addPost = (post, history) => {
   if (post) {
     return dispatch => {
       API.addPost(post).then(response => {
         dispatch({ type: ADD_POST, post: response.data })
+        dispatch({
+          type: NEW_MESSAGE, message: [
+            {
+              title: 'Post has been created successfully!',
+              positive: true,
+            }
+          ]
+        })
+        history.push(`/${response.data.category}/${response.data.id}`)
       })
     }
   }
@@ -92,6 +102,9 @@ export const deleteComment = ({ id }) => {
 
 export const deletePost = ({ postId, history, category }) => {
   return dispatch => {
+    dispatch({
+      type: CLEAR_MESSAGES
+    })
     API.deletePost({ postId }).then(response => {
       dispatch({ type: DELETE_POST, post: response })
       history.push(`/${category}`)
@@ -100,7 +113,6 @@ export const deletePost = ({ postId, history, category }) => {
           {
             title: 'Post has been deleted successfully!',
             warning: true,
-            description: 'Lorem ipsum dolor sit amet'
           }
         ]
       })

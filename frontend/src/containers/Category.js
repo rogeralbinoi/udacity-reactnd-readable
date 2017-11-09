@@ -18,6 +18,10 @@ const WrapperActions = styled.div`
   }
 `
 
+const WrapperMessages = styled.div`
+  padding: 1em 0;
+`
+
 class Category extends Component {
   state = {
     sortPostsBy: '-voteScore'
@@ -42,14 +46,16 @@ class Category extends Component {
       <AppHeader key="AppHeader">
         <Container>Readable {name && ` - ${name}`}</Container>
       </AppHeader>,
-      <Container>
-        {this.props.messages.map((message) => {
-          return (<Message>
-            <Message.Header>{message.title}</Message.Header>
-            <p>{message.description}</p>
-          </Message>)
-        })}
-      </Container>,
+      !!this.props.messages.length && (<Container>
+        <WrapperMessages>
+          {this.props.messages.map((message) => {
+            return (<Message warning={message.warning}>
+              <Message.Header>{message.title}</Message.Header>
+              <p>{message.description}</p>
+            </Message>)
+          })}
+        </WrapperMessages>
+      </Container>),
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
         <WrapperActions>
@@ -58,8 +64,8 @@ class Category extends Component {
               <Form.Field required label='Order by' control='select' value={this.state.sortPostsBy} onChange={(e) => { this.updateForm('sortPostsBy', e.target.value) }}>
                 <option value="-voteScore">Best Score</option>
                 <option value="voteScore">Worse Score</option>
-                <option value="timestamp">Lastest posts</option>
-                <option value="-timestamp">Recent posts</option>
+                <option value="-timestamp">Lastest posts</option>
+                <option value="timestamp">Oldest posts</option>
               </Form.Field>
             </Form.Group>
           </Form>

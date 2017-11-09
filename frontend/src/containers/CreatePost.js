@@ -33,6 +33,7 @@ class CreatePost extends Component {
     console.log(this.state.form)
   }
   render() {
+    const { history } = this.props
     return [
       <AppHeader key="AppHeader">
         <Container>Readable - New Post</Container>
@@ -40,11 +41,11 @@ class CreatePost extends Component {
       <Container key="main">
         <MenuCategories categories={this.props.categories} />
         <WrapperActions>
-          <Button icon={'plus'} content="New post" as={Link} to="/create-post/" color="green" />
+
         </WrapperActions>
       </Container>,
       <Container key={'newPost'}>
-        <Form onSubmit={() => { this.props.addPost(this.state.form) }}>
+        <Form onSubmit={() => { this.props.addPost(this.state.form, history) }}>
           <Form.Input required label='Title' placeholder='Title' value={this.state.form.title} onChange={(e) => { this.updateForm('title', e.target.value) }} />
           <Form.Group widths='equal'>
             <Form.Input required label='Author' placeholder='Your name' value={this.state.form.author} onChange={(e) => { this.updateForm('author', e.target.value) }} />
@@ -58,7 +59,7 @@ class CreatePost extends Component {
             </Form.Field>
           </Form.Group>
           <Form.TextArea required label='Post' placeholder='Your post here...' value={this.state.form.body} onChange={(e) => { this.updateForm('body', e.target.value) }} />
-          <Form.Button>Submit</Form.Button>
+          <Form.Button positive>Submit</Form.Button>
         </Form>
       </Container>
     ]
@@ -76,8 +77,8 @@ const mapDispatchToProps = dispatch => {
     fetchCategories: () => {
       dispatch(fetchCategories())
     },
-    addPost: (post) => {
-      dispatch(addPost(post))
+    addPost: (post, history) => {
+      dispatch(addPost(post, history))
     }
   }
 }
