@@ -3,6 +3,7 @@ import sortBy from 'sort-by'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
+export const EDIT_POST = 'EDIT_POST'
 export const FETCH_POST = 'FETCH_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
@@ -38,6 +39,26 @@ export const addPost = (post, history) => {
           type: NEW_MESSAGE, message: [
             {
               title: 'Post has been created successfully!',
+              positive: true,
+            }
+          ]
+        })
+        history.push(`/${response.data.category}/${response.data.id}`)
+      })
+    }
+  }
+}
+
+export const editPost = (post, id, history) => {
+  if (post) {
+    post.id = id
+    return dispatch => {
+      API.editPost(post).then(response => {
+        dispatch({ type: EDIT_POST, post: response.data })
+        dispatch({
+          type: NEW_MESSAGE, message: [
+            {
+              title: 'Post has been edited successfully!',
               positive: true,
             }
           ]

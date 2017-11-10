@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import sortBy from 'sort-by'
 import { addComment, voteComment, deleteComment } from '../actions'
 import { connect } from 'react-redux'
 import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react'

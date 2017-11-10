@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Container, Button, Header, Icon, Label, Rating, Message } from 'semantic-ui-react'
+import { Container, Button, Header, Icon, Message } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import Comments from '../components/Comments'
 import { fetchCategories, fetchPost, fetchComments, votePost, deletePost } from '../actions'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const WrapperPost = styled.div`
   margin: 2rem 0;
@@ -89,7 +89,7 @@ class Post extends Component {
             <Button onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }}><Icon name={'dislike outline'} />Dislike</Button>
           </Button.Group>
           <Button.Group basic size='mini'>
-            {/* <Button onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }}><Icon name={'edit outline'} />Edit</Button> */}
+            {<Button as={Link} to={`/post/${id}`}><Icon name={'edit outline'} />Edit</Button>}
             <Button onClick={() => { this.props.deletePost({ postId: id, history: this.props.history, category: this.props.match.params.category }) }}><Icon name={'trash outline'} />Delete</Button>
           </Button.Group>
           {!!body && (<p className="post">{body}</p>)}

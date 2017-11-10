@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { Container, Form } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
-import { fetchCategories, addPost } from '../actions'
-import { Link } from 'react-router-dom'
+import { fetchCategories, addPost, fetchPost, editPost } from '../actions'
 import styled from 'styled-components'
 
 const WrapperActions = styled.div`
@@ -16,8 +15,11 @@ const WrapperActions = styled.div`
 class CreatePost extends Component {
   componentDidMount() {
     this.props.fetchCategories()
+    this.props.match.params.id && this.props.fetchPost(this.props.match.params.id)
   }
   state = {
+    submitText: 'Save',
+    edit: false,
     form: {
       title: '',
       author: '',
@@ -32,6 +34,12 @@ class CreatePost extends Component {
     })
     console.log(this.state.form)
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.post !== this.props.post) {
+      const { title, author, category, body } = nextProps.post
+      this.setState({ edit: true, form: { title, author, category, body } })
+    }
+  }
   render() {
     const { history } = this.props
     return [
@@ -45,7 +53,7 @@ class CreatePost extends Component {
         </WrapperActions>
       </Container>,
       <Container key={'newPost'}>
-        <Form onSubmit={() => { this.props.addPost(this.state.form, history) }}>
+        <Form onSubmit={() => { this.state.edit ? this.props.editPost(this.state.form, this.props.post.id, history) : this.props.addPost(this.state.form, history) }}>
           <Form.Input required label='Title' placeholder='Title' value={this.state.form.title} onChange={(e) => { this.updateForm('title', e.target.value) }} />
           <Form.Group widths='equal'>
             <Form.Input required label='Author' placeholder='Your name' value={this.state.form.author} onChange={(e) => { this.updateForm('author', e.target.value) }} />
@@ -59,7 +67,7 @@ class CreatePost extends Component {
             </Form.Field>
           </Form.Group>
           <Form.TextArea required label='Post' placeholder='Your post here...' value={this.state.form.body} onChange={(e) => { this.updateForm('body', e.target.value) }} />
-          <Form.Button positive>Submit</Form.Button>
+          <Form.Button positive>{this.state.submitText}</Form.Button>
         </Form>
       </Container>
     ]
@@ -69,6 +77,7 @@ class CreatePost extends Component {
 const mapStateToProps = state => {
   return {
     categories: state.categories,
+    post: state.post,
   }
 }
 
@@ -79,6 +88,12 @@ const mapDispatchToProps = dispatch => {
     },
     addPost: (post, history) => {
       dispatch(addPost(post, history))
+    },
+    fetchPost: (postId = '') => {
+      dispatch(fetchPost(postId))
+    },
+    editPost: (form, id, history) => {
+      dispatch(editPost(form, id, history))
     }
   }
 }
