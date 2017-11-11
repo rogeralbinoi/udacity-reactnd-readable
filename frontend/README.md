@@ -1,4 +1,4 @@
-## My Reads
+## Readable
 Projeto criado para aplicar o que aprendi no módulo React e Redux do curso React Nanodegree.
 
 ## Tech/framework used
