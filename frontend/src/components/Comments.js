@@ -1,20 +1,33 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { addComment, voteComment, deleteComment } from '../actions'
+import { addComment, voteComment, deleteComment, editComment } from '../actions'
 import { connect } from 'react-redux'
 import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react'
 
 class Comments extends Component {
     state = {
         body: '',
-        author: ''
+        author: '',
+        edit: {}
     }
     handleChange = (field, value) => {
+        if (field === 'edit') {
+            return this.setState((state) => (
+                { edit: { ...state.edit, body: value } }
+            ))
+        }
         this.setState({ [field]: value })
     }
     handleSubmit = (parentId) => {
         const data = { parentId, ...this.state }
         this.props.addComment(data)
+    }
+    handleEditComment = (comment) => {
+        this.setState({ edit: {} })
+        this.props.editComment(comment)
+    }
+    editComment = (comment) => {
+        this.setState({ edit: comment })
     }
     render() {
         const { items, parentId } = this.props
@@ -24,7 +37,8 @@ class Comments extends Component {
                 <Header as='h3' dividing>Comments</Header>
                 {!comments.length && <p>Be the first to comment ;)</p>}
                 {comments.map((comment) => (
-                    <Comment key={comment.id}>
+                    this.state.edit.id !== comment.id &&
+                    (<Comment key={comment.id}>
                         <Comment.Content>
                             <Comment.Author>
                                 <Icon name="user" /> {comment.author}
@@ -37,10 +51,32 @@ class Comments extends Component {
                             <Comment.Actions>
                                 <Comment.Action onClick={() => { this.props.voteComment({ id: comment.id, vote: 'upVote' }) }}><Icon name={'like outline'} />Like</Comment.Action>
                                 <Comment.Action onClick={() => { this.props.voteComment({ id: comment.id, vote: 'downVote' }) }}><Icon name={'dislike outline'} />Dislike</Comment.Action>
+                                <Comment.Action onClick={() => { this.editComment(comment) }}><Icon name={'edit outline'} />Edit</Comment.Action>
                                 <Comment.Action onClick={() => { this.props.deleteComment({ id: comment.id }) }}><Icon name={'trash outline'} />Delete</Comment.Action>
                             </Comment.Actions>
                         </Comment.Content>
-                    </Comment>
+                    </Comment>) || (
+                        <Comment key={comment.id}>
+                            <Comment.Content>
+                                <Comment.Author>
+                                    <Icon name="user" /> {comment.author}
+                                </Comment.Author>
+                                <Comment.Metadata>
+                                    <div><Icon name={'like outline'} /> {comment.voteScore} Likes</div>
+                                    <div>{moment(comment.timestamp).calendar()}</div>
+                                </Comment.Metadata>
+                                <Form reply onSubmit={() => { this.handleEditComment(this.state.edit) }}>
+                                    <Form.TextArea required label="Comment" value={this.state.edit.body} onChange={(e) => { this.handleChange('edit', e.target.value) }} />
+                                    <Button content='Save Comment' labelPosition='left' icon='edit' primary />
+                                </Form>
+                                <Comment.Actions>
+                                    <Comment.Action onClick={() => { this.props.voteComment({ id: comment.id, vote: 'upVote' }) }}><Icon name={'like outline'} />Like</Comment.Action>
+                                    <Comment.Action onClick={() => { this.props.voteComment({ id: comment.id, vote: 'downVote' }) }}><Icon name={'dislike outline'} />Dislike</Comment.Action>
+                                    <Comment.Action onClick={() => { this.editComment(comment) }}><Icon name={'edit outline'} />Edit</Comment.Action>
+                                    <Comment.Action onClick={() => { this.props.deleteComment({ id: comment.id }) }}><Icon name={'trash outline'} />Delete</Comment.Action>
+                                </Comment.Actions>
+                            </Comment.Content>
+                        </Comment>)
                 ))}
 
                 <Form reply onSubmit={() => { this.handleSubmit(parentId) }}>
@@ -67,6 +103,9 @@ const mapDispatchToProps = dispatch => {
         },
         deleteComment: ({ id }) => {
             dispatch(deleteComment({ id }))
+        },
+        editComment: ({ id, body }) => {
+            dispatch(editComment({ id, body }))
         }
     }
 }

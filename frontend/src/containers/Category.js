@@ -11,6 +11,7 @@ import styled from 'styled-components'
 const WrapperActions = styled.div`
   margin: 1rem 0;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   align-items: flex-end;
   .ui.form .fields {

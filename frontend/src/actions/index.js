@@ -1,20 +1,21 @@
 import * as API from '../API'
 import sortBy from 'sort-by'
 import uuidv1 from 'uuid/v1'
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
-export const EDIT_POST = 'EDIT_POST'
+export const VOTE_POST = 'VOTE_POST'
 export const FETCH_POST = 'FETCH_POST'
+export const EDIT_POST = 'EDIT_POST'
+export const DELETE_POST = 'DELETE_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
-export const VOTE_POST = 'VOTE_POST'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const DELETE_POST = 'DELETE_POST'
-export const NEW_MESSAGE = 'NEW_MESSAGE'
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES'
+export const NEW_MESSAGE = 'NEW_MESSAGE'
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE'
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 
 export const fetchCategories = () => {
   return dispatch => {
@@ -51,7 +52,7 @@ export const addPost = (post, history) => {
           dispatch({
             type: REMOVE_MESSAGE, message: { id: messageId }
           })
-        }, 1000)
+        }, 10000)
         history.push(`/${response.data.category}/${response.data.id}`)
       })
     }
@@ -78,10 +79,18 @@ export const editPost = (post, id, history) => {
           dispatch({
             type: REMOVE_MESSAGE, message: { id: messageId }
           })
-        }, 1000)
+        }, 10000)
         history.push(`/${response.data.category}/${response.data.id}`)
       })
     }
+  }
+}
+
+export const editComment = (comment, history) => {
+  return dispatch => {
+    API.editComment(comment).then(response => {
+      dispatch({ type: EDIT_COMMENT, comment: response.data })
+    })
   }
 }
 
@@ -156,7 +165,7 @@ export const deletePost = ({ postId, history, category }) => {
         dispatch({
           type: REMOVE_MESSAGE, message: { id: messageId }
         })
-      }, 1000)
+      }, 10000)
     })
   }
 }

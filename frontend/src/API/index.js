@@ -78,6 +78,18 @@ export const editPost = data => {
     })
 }
 
+export const editComment = ({ id = '', body = '' }) => {
+  const data = {}
+  data.body = body
+  data.timestamp = Date.now()
+  return axios
+    .put(`${baseURL}/comments/${id}`, data, config)
+    .catch(function (error) {
+      console.log(error)
+    })
+}
+
+
 export const deletePost = ({ postId }) => {
   if (!postId) return
   console.clear()

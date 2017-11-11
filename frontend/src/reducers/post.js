@@ -5,7 +5,8 @@ import {
   VOTE_COMMENT,
   DELETE_COMMENT,
   VOTE_POST,
-  DELETE_POST
+  DELETE_POST,
+  EDIT_COMMENT
 } from '../actions'
 
 const post = (state = {}, action = '') => {
@@ -23,6 +24,16 @@ const post = (state = {}, action = '') => {
         comments: [...state.comments, action.comment]
       }
     case VOTE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.comment.id) {
+            return action.comment
+          }
+          return comment
+        })
+      }
+    case EDIT_COMMENT:
       return {
         ...state,
         comments: state.comments.map((comment) => {

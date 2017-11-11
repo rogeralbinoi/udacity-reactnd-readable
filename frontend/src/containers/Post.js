@@ -28,6 +28,7 @@ const WrapperPost = styled.div`
 
 const WrapperPostActions = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem 0;
 `
@@ -38,6 +39,7 @@ const WrapperMessages = styled.div`
 
 const WrapperInfo = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   padding: .3rem;
   background: #f8f8f8;
