@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Container, Button, Header, Icon, Message } from 'semantic-ui-react'
+import { Container, Button, Header, Icon, Message, Label } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import Comments from '../components/Comments'
@@ -24,6 +24,12 @@ const WrapperPost = styled.div`
     margin-top: 2rem;
     font-size: 1.2rem;
   }
+`
+
+const WrapperPostActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
 `
 
 const WrapperMessages = styled.div`
@@ -79,19 +85,20 @@ class Post extends Component {
           <Header className={'title'} as='h1'>{title}
           </Header>
           <WrapperInfo>
-            <span><Icon name={'like outline'} /> {voteScore}</span>
             <span><Icon name={'user'} /> {author}</span>
             <span>Category: {category}</span>
             <span><Icon name={'calendar'} /> {date}</span>
           </WrapperInfo>
-          <Button.Group basic size='mini'>
-            <Button onClick={() => { this.props.votePost({ id: id, vote: 'upVote' }) }}><Icon name={'like outline'} />Like</Button>
-            <Button onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }}><Icon name={'dislike outline'} />Dislike</Button>
-          </Button.Group>
-          <Button.Group basic size='mini'>
-            {<Button as={Link} to={`/post/${id}`}><Icon name={'edit outline'} />Edit</Button>}
-            <Button onClick={() => { this.props.deletePost({ postId: id, history: this.props.history, category: this.props.match.params.category }) }}><Icon name={'trash outline'} />Delete</Button>
-          </Button.Group>
+          <WrapperPostActions>
+            <Button.Group basic size='mini'>
+              <Button icon={'like outline'} content={'Like'} onClick={() => { this.props.votePost({ id: id, vote: 'upVote' }) }}></Button>
+              <Button label={<Label>{voteScore}</Label>} onClick={() => { this.props.votePost({ id: id, vote: 'downVote' }) }} icon={'dislike outline'} content={'dislike'}></Button>
+            </Button.Group>
+            <Button.Group basic size='mini'>
+              {<Button as={Link} to={`/post/${id}`}><Icon name={'edit outline'} />Edit</Button>}
+              <Button onClick={() => { this.props.deletePost({ postId: id, history: this.props.history, category: this.props.match.params.category }) }}><Icon name={'trash outline'} />Delete</Button>
+            </Button.Group>
+          </WrapperPostActions>
           {!!body && (<p className="post">{body}</p>)}
         </WrapperPost>
       </Container>,

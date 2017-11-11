@@ -1,5 +1,6 @@
 import * as API from '../API'
 import sortBy from 'sort-by'
+import uuidv1 from 'uuid/v1'
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
@@ -13,6 +14,7 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const DELETE_POST = 'DELETE_POST'
 export const NEW_MESSAGE = 'NEW_MESSAGE'
 export const CLEAR_MESSAGES = 'CLEAR_MESSAGES'
+export const REMOVE_MESSAGE = 'REMOVE_MESSAGE'
 
 export const fetchCategories = () => {
   return dispatch => {
@@ -35,14 +37,21 @@ export const addPost = (post, history) => {
     return dispatch => {
       API.addPost(post).then(response => {
         dispatch({ type: ADD_POST, post: response.data })
+        const messageId = uuidv1()
         dispatch({
           type: NEW_MESSAGE, message: [
             {
+              id: messageId,
               title: 'Post has been created successfully!',
               positive: true,
             }
           ]
         })
+        setTimeout(() => {
+          dispatch({
+            type: REMOVE_MESSAGE, message: { id: messageId }
+          })
+        }, 1000)
         history.push(`/${response.data.category}/${response.data.id}`)
       })
     }
@@ -55,14 +64,21 @@ export const editPost = (post, id, history) => {
     return dispatch => {
       API.editPost(post).then(response => {
         dispatch({ type: EDIT_POST, post: response.data })
+        const messageId = uuidv1()
         dispatch({
           type: NEW_MESSAGE, message: [
             {
+              id: messageId,
               title: 'Post has been edited successfully!',
               positive: true,
             }
           ]
         })
+        setTimeout(() => {
+          dispatch({
+            type: REMOVE_MESSAGE, message: { id: messageId }
+          })
+        }, 1000)
         history.push(`/${response.data.category}/${response.data.id}`)
       })
     }
@@ -123,20 +139,24 @@ export const deleteComment = ({ id }) => {
 
 export const deletePost = ({ postId, history, category }) => {
   return dispatch => {
-    dispatch({
-      type: CLEAR_MESSAGES
-    })
     API.deletePost({ postId }).then(response => {
       dispatch({ type: DELETE_POST, post: response })
       history.push(`/${category}`)
+      const messageId = uuidv1()
       dispatch({
         type: NEW_MESSAGE, message: [
           {
+            id: messageId,
             title: 'Post has been deleted successfully!',
             warning: true,
           }
         ]
       })
+      setTimeout(() => {
+        dispatch({
+          type: REMOVE_MESSAGE, message: { id: messageId }
+        })
+      }, 1000)
     })
   }
 }
