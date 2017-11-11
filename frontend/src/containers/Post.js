@@ -72,7 +72,7 @@ class Post extends Component {
         </WrapperMessages>
       </Container>),
       <Container key="main">
-        <MenuCategories categories={this.props.categories} />
+        <MenuCategories categories={this.props.categories} active={this.props.match.params.category} />
       </Container>,
       <Container key="post">
         <WrapperPost>
