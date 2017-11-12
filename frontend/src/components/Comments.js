@@ -23,6 +23,15 @@ class Comments extends Component {
   handleSubmit = (parentId) => {
     const data = { parentId, ...this.state.form }
     this.props.addComment(data)
+    this.setState(state => {
+      return {
+        ...state,
+        form: {
+          body: '',
+          author: ''
+        }
+      }
+    })
   }
   handleEditComment = (comment) => {
     this.setState({ edit: {} })
