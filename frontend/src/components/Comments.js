@@ -42,7 +42,7 @@ class Comments extends Component {
   }
   render() {
     const { items, parentId } = this.props
-    const comments = (items || []).filter(comment => !comment.deleted)
+    const comments = (items || []).filter(comment => !comment.deleted && !comment.parentDeleted)
     return (
       <Comment.Group>
         <Header as='h3' dividing>Comments</Header>
