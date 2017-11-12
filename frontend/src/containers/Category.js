@@ -4,7 +4,7 @@ import { Container, Button, Form, Message } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import ListPosts from '../components/ListPosts'
-import { categoryActions, postsActions } from '../actions'
+import { categoriesActions, postsActions } from '../actions'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -89,7 +89,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => {
-      dispatch(categoryActions.fetchCategories())
+      dispatch(categoriesActions.fetchCategories())
     },
     fetchPosts: (category = '') => {
       console.log(category)

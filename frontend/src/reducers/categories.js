@@ -1,5 +1,5 @@
-import { categoryActions } from '../actions'
-const { FETCH_CATEGORIES } = categoryActions
+import { categoriesActions } from '../actions'
+const { FETCH_CATEGORIES } = categoriesActions
 
 const categories = (state = [], action = '') => {
   switch (action.type) {

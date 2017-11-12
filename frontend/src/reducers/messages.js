@@ -1,5 +1,5 @@
-import { messageActions } from '../actions'
-const { NEW_MESSAGE, CLEAR_MESSAGES, REMOVE_MESSAGE } = messageActions
+import { messagesActions } from '../actions'
+const { NEW_MESSAGE, CLEAR_MESSAGES, REMOVE_MESSAGE } = messagesActions
 
 const initialState = []
 

@@ -1,11 +1,11 @@
-import * as categoryActions from './categories'
-import * as commentActions from './comments'
+import * as categoriesActions from './categories'
+import * as commentsActions from './comments'
 import * as postsActions from './posts'
-import * as messageActions from './messages'
+import * as messagesActions from './messages'
 
 export {
-  categoryActions,
-  commentActions,
+  categoriesActions,
+  commentsActions,
   postsActions,
-  messageActions
+  messagesActions
 }

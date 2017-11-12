@@ -1,11 +1,11 @@
-import { postsActions, commentActions } from '../actions'
+import { postsActions, commentsActions } from '../actions'
 const {
   FETCH_COMMENTS,
   ADD_COMMENT,
   VOTE_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT
-} = commentActions
+} = commentsActions
 
 const {
   FETCH_POST,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { commentActions } from '../actions'
+import { commentsActions } from '../actions'
 import { connect } from 'react-redux'
 import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react'
 
@@ -98,16 +98,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     addComment: (postId = '') => {
-      dispatch(commentActions.addComment(postId))
+      dispatch(commentsActions.addComment(postId))
     },
     voteComment: ({ id, vote }) => {
-      dispatch(commentActions.voteComment({ id, vote }))
+      dispatch(commentsActions.voteComment({ id, vote }))
     },
     deleteComment: ({ id }) => {
-      dispatch(commentActions.deleteComment({ id }))
+      dispatch(commentsActions.deleteComment({ id }))
     },
     editComment: ({ id, body }) => {
-      dispatch(commentActions.editComment({ id, body }))
+      dispatch(commentsActions.editComment({ id, body }))
     }
   }
 }
