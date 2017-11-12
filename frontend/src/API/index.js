@@ -20,14 +20,12 @@ export const getPosts = (category = '') => {
 }
 
 export const getPost = postId => {
-  if (!postId) return
   return axios.get(`${baseURL}/posts/${postId}`, config).catch(function (error) {
     console.log(error)
   })
 }
 
 export const getComments = postId => {
-  if (!postId) return
   return axios.get(`${baseURL}/posts/${postId}/comments`, config).catch(function (error) {
     console.log(error)
   })
@@ -35,8 +33,6 @@ export const getComments = postId => {
 
 export const votePost = ({ postId, vote }) => {
   const option = vote === 'upVote' || vote === 'downVote' ? vote : ''
-  if (!postId || !option) return
-
   return axios
     .post(`${baseURL}/posts/${postId}`, { option }, config)
     .catch(function (error) {
@@ -46,8 +42,6 @@ export const votePost = ({ postId, vote }) => {
 
 export const voteComment = ({ id, vote }) => {
   const option = vote === 'upVote' || vote === 'downVote' ? vote : ''
-  if (!id || !option) return
-
   return axios
     .post(`${baseURL}/comments/${id}`, { option }, config)
     .catch(function (error) {
@@ -56,8 +50,6 @@ export const voteComment = ({ id, vote }) => {
 }
 
 export const deleteComment = ({ id }) => {
-  if (!id) return
-
   return axios
     .delete(`${baseURL}/comments/${id}`, config)
     .catch(function (error) {
@@ -67,7 +59,6 @@ export const deleteComment = ({ id }) => {
 
 export const editPost = data => {
   const { title = '', body = '', id = '' } = data || {}
-  if (!id || (!title && !body)) return
   if (!title) delete data.title
   if (!body) delete data.body
   delete data.id
