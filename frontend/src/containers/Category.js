@@ -58,7 +58,7 @@ class Category extends Component {
         </WrapperMessages>
       </Container>),
       <Container key="main">
-        <MenuCategories categories={this.props.categories} active={this.props.match.params.category} />
+        <MenuCategories categories={this.props.categories.items} active={this.props.match.params.category} />
         <WrapperActions>
           <Form>
             <Form.Group widths='equal'>

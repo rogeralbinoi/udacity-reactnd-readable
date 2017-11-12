@@ -47,7 +47,7 @@ class CreatePost extends Component {
         <Container>Readable - New Post</Container>
       </AppHeader>,
       <Container key="main">
-        <MenuCategories categories={this.props.categories} />
+        <MenuCategories categories={this.props.categories.items} />
         <WrapperActions>
 
         </WrapperActions>
@@ -59,7 +59,7 @@ class CreatePost extends Component {
             <Form.Input required label='Author' placeholder='Your name' value={this.state.form.author} onChange={(e) => { this.updateForm('author', e.target.value) }} />
             <Form.Field required label='Category' control='select' value={this.state.form.category} onChange={(e) => { this.updateForm('category', e.target.value) }}>
               <option value="">Select a Category</option>
-              {(this.props.categories || []).map((category) => {
+              {(this.props.categories.items || []).map((category) => {
                 return (
                   <option value={category.path}>{category.name}</option>
                 )
