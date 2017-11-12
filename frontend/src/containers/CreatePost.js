@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Form } from 'semantic-ui-react'
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
-import { fetchCategories, addPost, fetchPost, editPost } from '../actions'
+import { categoryActions, postsActions } from '../actions'
 import styled from 'styled-components'
 
 const WrapperActions = styled.div`
@@ -85,16 +85,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(categoryActions.fetchCategories())
     },
     addPost: (post, history) => {
-      dispatch(addPost(post, history))
+      dispatch(postsActions.addPost(post, history))
     },
     fetchPost: (postId = '') => {
-      dispatch(fetchPost(postId))
+      dispatch(postsActions.fetchPost(postId))
     },
     editPost: (form, id, history) => {
-      dispatch(editPost(form, id, history))
+      dispatch(postsActions.editPost(form, id, history))
     }
   }
 }

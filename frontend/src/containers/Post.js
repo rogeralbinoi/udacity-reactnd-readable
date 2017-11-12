@@ -5,7 +5,7 @@ import { Container, Button, Header, Icon, Message, Label } from 'semantic-ui-rea
 import AppHeader from '../components/AppHeader'
 import MenuCategories from '../components/MenuCategories'
 import Comments from '../components/Comments'
-import { fetchCategories, fetchPost, fetchComments, votePost, deletePost } from '../actions'
+import { categoryActions, postsActions, commentActions } from '../actions'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
@@ -122,19 +122,19 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchCategories: () => {
-      dispatch(fetchCategories())
+      dispatch(categoryActions.fetchCategories())
     },
     fetchPost: (postId = '') => {
-      dispatch(fetchPost(postId))
+      dispatch(postsActions.fetchPost(postId))
     },
     fetchComments: (postId = '') => {
-      dispatch(fetchComments(postId))
+      dispatch(commentActions.fetchComments(postId))
     },
     votePost: ({ id, vote }) => {
-      dispatch(votePost({ postId: id, vote }))
+      dispatch(postsActions.votePost({ postId: id, vote }))
     },
     deletePost: ({ postId, history, category }) => {
-      dispatch(deletePost({ postId, history, category }))
+      dispatch(postsActions.deletePost({ postId, history, category }))
     }
   }
 }

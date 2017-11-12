@@ -1,13 +1,17 @@
-import {
-  FETCH_POST,
+import { postsActions, commentActions } from '../actions'
+const {
   FETCH_COMMENTS,
   ADD_COMMENT,
   VOTE_COMMENT,
-  DELETE_COMMENT,
+  EDIT_COMMENT,
+  DELETE_COMMENT
+} = commentActions
+
+const {
+  FETCH_POST,
   VOTE_POST,
   DELETE_POST,
-  EDIT_COMMENT
-} from '../actions'
+} = postsActions
 
 const post = (state = {}, action = '') => {
   switch (action.type) {

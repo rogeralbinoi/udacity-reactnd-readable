@@ -1,4 +1,5 @@
-import { FETCH_POSTS, ADD_POST, EDIT_POST } from '../actions'
+import { postsActions } from '../actions'
+const { FETCH_POSTS, ADD_POST, EDIT_POST } = postsActions
 
 const posts = (state = [], action = '') => {
   switch (action.type) {
