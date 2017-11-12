@@ -5,12 +5,15 @@ import { connect } from 'react-redux'
 import { Button, Comment, Form, Header, Icon } from 'semantic-ui-react'
 
 class Comments extends Component {
-  state = {
-    form: {
-      body: '',
-      author: ''
-    },
-    edit: {}
+  constructor(props) {
+    super(props)
+    this.state = {
+      form: {
+        body: '',
+        author: ''
+      },
+      edit: {}
+    }
   }
   handleChange = (field, value) => {
     if (field === 'edit') {
