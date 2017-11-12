@@ -29,7 +29,6 @@ class CreatePost extends Component {
     }
   }
   updateForm = (field, value) => {
-    console.log(field, value)
     this.setState((state) => {
       return { form: { ...state.form, [field]: value } }
     })

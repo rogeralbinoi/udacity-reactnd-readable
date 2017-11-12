@@ -92,7 +92,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(categoriesActions.fetchCategories())
     },
     fetchPosts: (category = '') => {
-      console.log(category)
       dispatch(postsActions.fetchPosts(category))
     }
   }

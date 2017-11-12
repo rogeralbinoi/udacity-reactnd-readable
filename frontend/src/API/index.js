@@ -91,9 +91,6 @@ export const editComment = ({ id = '', body = '' }) => {
 
 
 export const deletePost = ({ postId }) => {
-  if (!postId) return
-  console.clear()
-  console.log(postId)
   return axios
     .delete(`${baseURL}/posts/${postId}`, config)
     .catch(function (error) {
