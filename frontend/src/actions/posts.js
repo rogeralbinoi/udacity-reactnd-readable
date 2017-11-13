@@ -35,11 +35,13 @@ export const votePost = ({ postId, vote }) => {
   }
 }
 
-export const deletePost = ({ postId, history, category }) => {
+export const deletePost = ({ postId, history, category = '' }) => {
   return dispatch => {
     API.deletePost({ postId }).then(response => {
-      dispatch({ type: DELETE_POST, post: response })
-      history.push(`/${category}`)
+      dispatch({ type: DELETE_POST, post: response.data })
+      if (category) {
+        history.push(`/${category}`)
+      }
       const messageId = uuidv1()
       dispatch({
         type: NEW_MESSAGE, message: [

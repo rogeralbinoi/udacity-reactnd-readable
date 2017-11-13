@@ -72,7 +72,7 @@ class Category extends Component {
           </Form>
           <Button icon={'plus'} content="New post" as={Link} to="/post/new" color="green" />
         </WrapperActions>
-        <ListPosts posts={this.props.posts} sortPostsBy={this.state.sortPostsBy} />
+        <ListPosts posts={this.props.posts} history={this.props.history} sortPostsBy={this.state.sortPostsBy} />
       </Container>
     ]
   }
